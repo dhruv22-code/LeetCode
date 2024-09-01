@@ -9,7 +9,7 @@ public:
             vector<int> v1;
 
             j = i;
-            for (; j - i  < n; j++) {
+            for (; j - i < n; j++) {
                 v1.push_back(original[j]);
             }
             v.push_back(v1);
