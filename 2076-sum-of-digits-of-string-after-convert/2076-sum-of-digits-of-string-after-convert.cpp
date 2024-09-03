@@ -2,12 +2,12 @@ class Solution {
 public:
     int getLucky(string s, int k) {
         long long int sum = 0;
-        vector<int> s1;
+        
         for (int i = 0; i < s.length(); i++) {
-            s1.push_back(s[i] - 'a' + 1);
-            while (s1[i] > 0) {
-                sum += (s1[i] % 10);
-                s1[i] = s1[i] / 10;
+            int s1 = s[i] - 'a' + 1;
+            while (s1 > 0) {
+                sum += (s1 % 10);
+                s1 = s1 / 10;
             }
         }
         long long int sum1;
