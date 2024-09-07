@@ -18,7 +18,7 @@ return result;
       long long int odd = n / 2;//choices == 4
        long long int even = n - odd;//chocies == 5
         long long int result =  (modExp(4, odd, MOD)*modExp(5, even, MOD))% MOD;
-        return result;
+        return (int)result;
 
     }
 };
