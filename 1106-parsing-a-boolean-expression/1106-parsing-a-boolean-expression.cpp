@@ -1,14 +1,16 @@
 class Solution {
 public:
     bool parseBoolExpr(string expression) {
-        stack<int>st;
+        stack<char> st;
         for (int i = expression.length() - 1; i >= 0; i--) {
             if (expression[i] == '&') {
                 st.pop();
                 char c = 't';
                 while (st.top() != ')') {
-                    if (st.top() == 'f')
+                    if (st.top() == 'f') {
                         c = 'f';
+                    }
+
                     st.pop();
                 }
                 st.pop();
@@ -26,10 +28,12 @@ public:
             } else if (expression[i] == '!') {
                 st.pop();
                 char c;
+                
                 if (st.top() == 'f')
                     c = 't';
                 else
                     c = 'f';
+                    st.pop();
                 st.pop();
                 st.push(c);
             } else {
