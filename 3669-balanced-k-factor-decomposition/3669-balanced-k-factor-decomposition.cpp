@@ -23,11 +23,7 @@ public:
                 dfs(n / i, k - 1, curr);
                 curr.pop_back();
 
-                if (i != n / i) {
-                    curr.push_back(n / i);
-                    dfs(i, k - 1, curr);
-                    curr.pop_back();
-                }
+                
             }
         }
     }
