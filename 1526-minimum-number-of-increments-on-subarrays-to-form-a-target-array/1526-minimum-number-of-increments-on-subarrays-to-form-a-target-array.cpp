@@ -5,24 +5,61 @@ public:
         if (n == 0) return 0;
 
         int ans = 0;
-        int prev = 0;                // height before current group (0 initially)
-        int groupMax = target[0];    // max inside current group
+        int i = 0;
+        bool firstGroup = true;
+        int prevLast = 0;
 
-        for (int i = 1; i < n; ++i) {
-            if (target[i] >= target[i - 1]) {
-                // still rising or flat in the current group
+        while (i < n) {
+            int groupMax = target[i];
+            int last = target[i];
+            int dir = 0; // 0 = unknown, 1 = rising, -1 = falling
+            i++;
+
+            // Determine initial direction (ignore flats)
+            while (i < n && target[i] == target[i - 1]) {
+                last = target[i];
                 groupMax = max(groupMax, target[i]);
-            } else {
-                // decline -> current group ends at i-1
-                ans += max(0, groupMax - prev);
-                // new group's base is the valley we dropped to
-                prev = target[i];
-                groupMax = target[i];
+                i++;
             }
+            if (i < n) dir = (target[i] > target[i - 1]) ? 1 : -1;
+
+            // Traverse the group
+            while (i < n) {
+                if (dir == 1) {
+                    if (target[i] >= target[i - 1]) {
+                        last = target[i];
+                        groupMax = max(groupMax, target[i]);
+                        i++;
+                    } else {
+                        // switch to decline
+                        dir = -1;
+                        last = target[i];
+                        groupMax = max(groupMax, target[i]);
+                        i++;
+                    }
+                } else {
+                    if (target[i] <= target[i - 1]) {
+                        last = target[i];
+                        groupMax = max(groupMax, target[i]);
+                        i++;
+                    } else {
+                        // group ends when next rise starts
+                        break;
+                    }
+                }
+            }
+
+            // Add contribution for this group
+            if (firstGroup) {
+                ans += groupMax;
+                firstGroup = false;
+            } else {
+                ans += (groupMax - prevLast);
+            }
+
+            prevLast = last; // update last element of this group
         }
 
-        // add contribution of the last group
-        ans += max(0, groupMax - prev);
         return ans;
     }
 };
