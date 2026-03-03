@@ -12,9 +12,9 @@ public:
         return s[k - 1];
     }
     string invert(string s){
-        for(char &c: s){
-         if(c == '1')c = '0';
-         else c = '1';
+        for(int i = 0 ; i < s.length() ;i++){
+         if(s[i] == '1')s[i] = '0';
+         else s[i] = '1';
         }
         return s;
     }
