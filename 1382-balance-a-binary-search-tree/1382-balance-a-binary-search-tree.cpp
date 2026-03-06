@@ -1,0 +1,32 @@
+class Solution {
+public:
+
+    void solve(TreeNode* root, vector<int>& v){
+        if(!root) return;
+
+        solve(root->left, v);
+        v.push_back(root->val);
+        solve(root->right, v);
+    }
+
+    TreeNode* build(vector<int>& v, int l, int r){
+        if(l > r) return NULL;
+
+        int mid = (l+r)/2;
+
+        TreeNode* root = new TreeNode(v[mid]);
+
+        root->left = build(v, l, mid-1);
+        root->right = build(v, mid+1, r);
+
+        return root;
+    }
+
+    TreeNode* balanceBST(TreeNode* root) {
+        vector<int> v;
+
+        solve(root, v);
+
+        return build(v, 0, v.size()-1);
+    }
+};
